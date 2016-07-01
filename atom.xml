@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://cqblog.info/"/>
-  <updated>2016-06-29T13:23:26.164Z</updated>
+  <updated>2016-07-01T01:05:25.015Z</updated>
   <id>http://cqblog.info/</id>
   
   <author>
@@ -14,6 +14,45 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>git服务器代码自动部署</title>
+    <link href="http://cqblog.info/2016/07/01/git%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%A0%81%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/"/>
+    <id>http://cqblog.info/2016/07/01/git服务器代码自动部署/</id>
+    <published>2016-07-01T01:05:24.000Z</published>
+    <updated>2016-07-01T01:05:25.015Z</updated>
+    
+    <content type="html"></content>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>nodejs微信开发(一)</title>
+    <link href="http://cqblog.info/2016/06/29/wechat/"/>
+    <id>http://cqblog.info/2016/06/29/wechat/</id>
+    <published>2016-06-29T12:49:07.000Z</published>
+    <updated>2016-06-30T02:13:32.387Z</updated>
+    
+    <content type="html">&lt;p&gt;废话不多说，直接上代码&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;废话不多说，直接上代码&lt;br&gt;
+    
+    </summary>
+    
+      <category term="nodejs" scheme="http://cqblog.info/categories/nodejs/"/>
+    
+    
+      <category term="微信" scheme="http://cqblog.info/tags/%E5%BE%AE%E4%BF%A1/"/>
+    
+  </entry>
   
   <entry>
     <title>多层json对象嵌套的扁平化与去扁平化</title>
