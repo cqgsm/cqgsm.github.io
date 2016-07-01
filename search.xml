@@ -6,13 +6,51 @@
     <entry>
       <title><![CDATA[git服务器代码自动部署]]></title>
       <url>http://cqblog.info/2016/07/01/git%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%A0%81%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/</url>
-      <content type="html"></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[nodejs微信开发(一)]]></title>
-      <url>http://cqblog.info/2016/06/29/wechat/</url>
-      <content type="html"><![CDATA[<p>废话不多说，直接上代码<br><a id="more"></a></p>
+      <content type="html"><![CDATA[<p>每次本地代码都要手动上传到服务器在部署，对于懒人的我来说简直不能忍，于是折腾了下git自动化部署，期间踩了不少坑，记录一下防止下次遇到。<br><a id="more"></a></p>
+<ul>
+<li>服务器版本： ubantu 16.04</li>
+<li>ipaddress：请填上自己服务器地址</li>
+<li>每次操作都要输入密码，需要配置密钥认证，后期再来填坑</li>
+<li>由于是个人项目，所以没有加入权限控制，后期填坑</li>
+</ul>
+<p>1.服务器端准备工作<br>=</p>
+<ol>
+<li><p>这些工作都在 <strong><em>root</em></strong> 或有管理权限的帐号下进行，下面以root为用户，切换到其他用户的时候会提示</p>
+</li>
+<li><p>确保安装了git</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">apt-get install git</div></pre></td></tr></table></figure>
+</li>
+<li><p>为了安全起见，新建一个专门用于代码部署的无特权用户</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">useradd -m git </div><div class="line">passwd deployuser  <span class="comment">#设置该用户的密码，也可根据喜好配置成免密码登陆</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>新建一个目录作为要部署代码的根目录，如：</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">    <span class="comment">#以我的项目为例</span></div><div class="line">    <span class="built_in">cd</span> /</div><div class="line">    mkdir /workspace/wechat</div><div class="line">    ```    </div><div class="line">5. 将这个目录的属主和属组都改为上面新建的用户git</div><div class="line">    ```sh</div><div class="line">    <span class="built_in">cd</span> /workspace</div><div class="line">    chown -R git:git *</div></pre></td></tr></table></figure>
+</li>
+<li><p>切换到部署代码的专用用户</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">su - git</div></pre></td></tr></table></figure>
+</li>
+<li><p>进入项目根目录，初始化为git仓库</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">    <span class="built_in">cd</span> /workspace/wechat</div><div class="line">    git init</div><div class="line">    ```            </div><div class="line">8. 【重要】让仓库接受代码提交</div><div class="line">    ```sh</div><div class="line">    git config receive.denyCurrentBranch ignore</div><div class="line">    [可选]  git config core.worktree ~/www</div><div class="line">    [可选]  git config --bool receive.denyNonFastForwards <span class="literal">false</span>  <span class="comment">#禁止强制推送</span></div><div class="line">        </div><div class="line">    至此，一个空的git仓库就在服务器上建好了，仓库的地址为：</div><div class="line">    git@ipaddress/workspace/wechat/.git</div><div class="line">    ```            </div><div class="line">    </div><div class="line">2.客户端准备</div><div class="line">=</div><div class="line">1. 通过 ``` git <span class="built_in">clone</span>```从 远程仓库上将代码获取到本地</div><div class="line">    ```sh</div><div class="line">    git <span class="built_in">clone</span> git@ipaddress:/workspace/webchat/.git</div><div class="line">    <span class="comment">#执行以上命令后能看到本地多了个文件夹</span></div><div class="line">    <span class="comment">#有可能会有以下警告，不用理会，这是因为服务端的仓库是空的</span></div><div class="line">    <span class="comment">#warning: You appear to have cloned an empty repository.</span></div><div class="line">    </div><div class="line">    执行：git remote -v 会显示</div><div class="line">        origin  git@ipaddress:/workspace/wechat/.git (fetch)</div><div class="line">        origin  git@ipaddress:/workspace/wechat/.git (push)</div><div class="line">    至此远程仓库已关联上</div></pre></td></tr></table></figure>
+</li>
+<li><p>在clone下来的webchat文件下创建一个文件如：a.txt</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#在当前目录下打开gitbash</span></div><div class="line">git add .</div><div class="line">git commit -m <span class="string">'test'</span></div><div class="line">git push origin master</div><div class="line"><span class="comment">#显示如下，代表已经push服务器仓库了</span></div><div class="line"><span class="comment">#Enter passphrase for key '/c/Users/asus-pc/.ssh/id_rsa':</span></div><div class="line"><span class="comment">#Counting objects: 3, done.</span></div><div class="line"><span class="comment">#Writing objects: 100% (3/3), 194 bytes | 0 bytes/s, done.</span></div><div class="line"><span class="comment">#Total 3 (delta 0), reused 0 (delta 0)</span></div><div class="line"><span class="comment">#To git@114.112.156.248:/workspace/wechat/.git</span></div><div class="line"><span class="comment"># * [new branch]      master -&gt; master</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>2.回到服务器端继续配置<br>=</p>
+<ol>
+<li><p>更新服务端 git 仓库状态并检出文件(执行完以下命令后，将看到服务端仓库也有了a.txt)，这是手动更新，太麻烦了，第二步配置自动更新服务器端代码</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /workspace/wechat</div><div class="line">git update-server-info</div><div class="line">git checkout <span class="_">-f</span></div><div class="line"><span class="comment">#或者执行：</span></div><div class="line">git checkout branch_name     <span class="comment"># 如果push的不是master分支</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>设置服务器端更新钩子 <figure class="highlight plain"><figcaption><span>```  </span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">```sh</div><div class="line">cd /workspace/wechat/.git/hooks</div><div class="line">#新建 post-receive </div><div class="line">touch post-receive</div><div class="line">vim post-receive</div><div class="line"></div><div class="line">#把以下内容复制进去保存</div><div class="line">#!/bin/sh</div><div class="line"> unset GIT_DIR</div><div class="line"> cd ..</div><div class="line"> git checkout -f</div><div class="line"> </div><div class="line"> #这一步很重要，要有写的权限</div><div class="line"> chmod a+x post-receive</div></pre></td></tr></table></figure></p>
+</li>
+</ol>
+<ol>
+<li>出于安全考虑，第二步创建的git用户不允许登录shell，这可以通过编辑/etc/passwd文件完成。找到类似下面的一行： <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">git:x:1001:1001:,,,:/home/git:/bin/bash</div><div class="line"><span class="comment">#修改为</span></div><div class="line">git:x:1001:1001:,,,:/home/git:/usr/bin/git-shell</div><div class="line"><span class="comment">#这样，git用户可以正常通过ssh使用git，但无法登录shell</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li>继续本地新建文件，然后<code>git add .</code> <code>git commit -m &quot;注释&quot;</code> <code>git push origin master</code>  去服务器上查看，服务器自动更新了我提交的内容，至此大功告成。   </li>
+</ol>
 ]]></content>
     </entry>
     
@@ -23,6 +61,13 @@
 <p>测试用例：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var xml = &#123;</div><div class="line">        ToUserName: [<span class="string">'阿斯顿'</span>],</div><div class="line">        FromUserName: [<span class="string">'啊实打实的'</span>],</div><div class="line">        CreateTime: [<span class="string">'hhhh123123123'</span>, &#123;<span class="string">"x"</span>: <span class="string">"aaa"</span>&#125;,[1, 2, 3, 4]],</div><div class="line">        MsgType: [<span class="string">'event'</span>],</div><div class="line">        Event: [<span class="string">'sdf '</span>],</div><div class="line">        EventKey: [<span class="string">''</span>],</div><div class="line">        xx: <span class="string">'xx'</span></div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
 <p>扁平化结果：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    CreateTime[0]: <span class="string">"hhhh123123123"</span>,</div><div class="line">    CreateTime[1].x: <span class="string">"aaa"</span>,</div><div class="line">    CreateTime[2][0]: 1,</div><div class="line">    CreateTime[2][1]: 2,</div><div class="line">    CreateTime[2][2]: 3,</div><div class="line">    CreateTime[2][3]: 4,</div><div class="line">    EventKey[0]: <span class="string">""</span>,</div><div class="line">    Event[0]: <span class="string">"sdf "</span>,</div><div class="line">    FromUserName[0]: <span class="string">"啊实打实的"</span>,</div><div class="line">    MsgType[0]: <span class="string">"event"</span>,</div><div class="line">    ToUserName[0]: <span class="string">"阿斯顿"</span>,</div><div class="line">    xx: <span class="string">"xx"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>正好能满足需求<br>使用   <strong>JSON.flatten</strong> 能还原去扁平化的值，不做演示。</p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[nodejs微信开发(一)]]></title>
+      <url>http://cqblog.info/2016/06/29/wechat/</url>
+      <content type="html"><![CDATA[<p>废话不多说，直接上代码<br><a id="more"></a></p>
 ]]></content>
     </entry>
     
