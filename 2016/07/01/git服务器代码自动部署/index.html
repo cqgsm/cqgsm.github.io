@@ -31,7 +31,7 @@ ipaddress：请填上自己服务器地址
 ipaddress：请填上自己服务器地址
 每次操作都要输入密码，需要配置密钥认证，后期再来填坑
 由于是个人项目，所以没有加入权限控制，后期填坑">
-<meta property="og:updated_time" content="2016-07-01T03:21:46.187Z">
+<meta property="og:updated_time" content="2016-07-01T03:30:19.222Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git服务器代码自动部署">
 <meta name="twitter:description" content="每次本地代码都要手动上传到服务器在部署，对于懒人的我来说简直不能忍，于是折腾了下git自动化部署，期间踩了不少坑，记录一下防止下次遇到。
@@ -362,7 +362,7 @@ ipaddress：请填上自己服务器地址
  <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">clone</span> git@ipaddress:/workspace/webchat/.git</div><div class="line"><span class="comment">#执行以上命令后能看到本地多了个文件夹</span></div><div class="line"><span class="comment">#有可能会有以下警告，不用理会，这是因为服务端的仓库是空的</span></div><div class="line"><span class="comment">#warning: You appear to have cloned an empty repository.</span></div><div class="line"></div><div class="line">执行：git remote -v 会显示</div><div class="line">    origin  git@ipaddress:/workspace/wechat/.git (fetch)</div><div class="line">    origin  git@ipaddress:/workspace/wechat/.git (pubash)</div><div class="line">至此远程仓库已关联上</div></pre></td></tr></table></figure>
 </li>
 <li><p>在clone下来的webchat文件下创建一个文件如：a.txt</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#在当前目录下打开gitbabash</span></div><div class="line">git add .</div><div class="line">git commit -m <span class="string">'test'</span></div><div class="line">git puorigin master</div><div class="line"><span class="comment">#显示如下，代表已经pubash服务器仓库了</span></div><div class="line"><span class="comment">#Enter passphrase for key '/c/Users/asus-pc/.sbash/id_rsa':</span></div><div class="line"><span class="comment">#Counting objects: 3, done.</span></div><div class="line"><span class="comment">#Writing objects: 100% (3/3), 194 bytes | 0 bytes/s, done.</span></div><div class="line"><span class="comment">#Total 3 (delta 0), reused 0 (delta 0)</span></div><div class="line"><span class="comment">#To git@114.112.156.248:/workspace/wechat/.git</span></div><div class="line"><span class="comment"># * [new branch]      master -&gt; master</span></div></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#在当前目录下打开gitbabash</span></div><div class="line">git add .</div><div class="line">git commit -m <span class="string">'test'</span></div><div class="line">git puorigin master</div><div class="line"><span class="comment">#显示如下，代表已经push到服务器仓库了</span></div><div class="line"><span class="comment">#Enter passphrase for key '/c/Users/asus-pc/.sbash/id_rsa':</span></div><div class="line"><span class="comment">#Counting objects: 3, done.</span></div><div class="line"><span class="comment">#Writing objects: 100% (3/3), 194 bytes | 0 bytes/s, done.</span></div><div class="line"><span class="comment">#Total 3 (delta 0), reused 0 (delta 0)</span></div><div class="line"><span class="comment">#To git@114.112.156.248:/workspace/wechat/.git</span></div><div class="line"><span class="comment"># * [new branch]      master -&gt; master</span></div></pre></td></tr></table></figure>
 </li>
 </ol>
 <h1 id="回到服务器端继续配置"><a href="#回到服务器端继续配置" class="headerlink" title="回到服务器端继续配置"></a>回到服务器端继续配置</h1><ol>
@@ -389,7 +389,7 @@ ipaddress：请填上自己服务器地址
         <p><span>本文标题:</span><a href="/2016/07/01/git服务器代码自动部署/">git服务器代码自动部署</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">白小菜</a></p>
         <p><span>发布时间:</span>2016-07-01, 09:05:24</p>
-        <p><span>最后更新:</span>2016-07-01, 11:21:46</p>
+        <p><span>最后更新:</span>2016-07-01, 11:30:19</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/07/01/git服务器代码自动部署/" title="git服务器代码自动部署">http://cqblog.info/2016/07/01/git服务器代码自动部署/</a>
             <span class="copy-path" data-clipboard-text="原文: http://cqblog.info/2016/07/01/git服务器代码自动部署/　　作者: 白小菜" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
