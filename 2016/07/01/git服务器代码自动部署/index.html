@@ -31,7 +31,7 @@ ipaddress：请填上自己服务器地址
 ipaddress：请填上自己服务器地址
 每次操作都要输入密码，需要配置密钥认证，后期再来填坑
 由于是个人项目，所以没有加入权限控制，后期填坑">
-<meta property="og:updated_time" content="2016-07-01T03:30:19.222Z">
+<meta property="og:updated_time" content="2016-07-01T03:47:26.279Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git服务器代码自动部署">
 <meta name="twitter:description" content="每次本地代码都要手动上传到服务器在部署，对于懒人的我来说简直不能忍，于是折腾了下git自动化部署，期间踩了不少坑，记录一下防止下次遇到。
@@ -205,7 +205,7 @@ ipaddress：请填上自己服务器地址
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/json/">json</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信/">微信</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/json/">json</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js知识汇总/">js知识汇总</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信/">微信</a></li></ul>
                     </div>
                 </section>
                 
@@ -336,10 +336,10 @@ ipaddress：请填上自己服务器地址
 <li><p>这些工作都在 <strong><em>root</em></strong> 或有管理权限的帐号下进行，下面以root为用户，切换到其他用户的时候会提示</p>
 </li>
 <li><p>确保安装了git</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">apt-get install git</div></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">apt-get install git</div></pre></td></tr></table></figure>
 </li>
 <li><p>为了安全起见，新建一个专门用于代码部署的无特权用户</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">useradd -m git </div><div class="line">passwd deployuser  #设置该用户的密码，也可根据喜好配置成免密码登陆</div></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">useradd -m git </div><div class="line">passwd deployuser  <span class="comment">#设置该用户的密码，也可根据喜好配置成免密码登陆</span></div></pre></td></tr></table></figure>
 </li>
 <li><p>新建一个目录作为要部署代码的根目录，如：</p>
  <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#以我的项目为例</span></div><div class="line"><span class="built_in">cd</span> /</div><div class="line">mkdir /workspace/wechat</div></pre></td></tr></table></figure>
@@ -389,7 +389,7 @@ ipaddress：请填上自己服务器地址
         <p><span>本文标题:</span><a href="/2016/07/01/git服务器代码自动部署/">git服务器代码自动部署</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">白小菜</a></p>
         <p><span>发布时间:</span>2016-07-01, 09:05:24</p>
-        <p><span>最后更新:</span>2016-07-01, 11:30:19</p>
+        <p><span>最后更新:</span>2016-07-01, 11:47:26</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/07/01/git服务器代码自动部署/" title="git服务器代码自动部署">http://cqblog.info/2016/07/01/git服务器代码自动部署/</a>
             <span class="copy-path" data-clipboard-text="原文: http://cqblog.info/2016/07/01/git服务器代码自动部署/　　作者: 白小菜" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -403,6 +403,12 @@ ipaddress：请填上自己服务器地址
 
 
     <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2016/07/02/javascript简单继承/">
+                    javascript简单继承
+                </a>
+            </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
@@ -488,7 +494,9 @@ ipaddress：请填上自己服务器地址
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/2016/07/02/javascript简单继承/" title="上一篇: javascript简单继承">
+                <i class="fa fa-angle-left"></i>
+            </a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
@@ -500,7 +508,7 @@ ipaddress：请填上自己服务器地址
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/07/01/git服务器代码自动部署/">git服务器代码自动部署</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/29/javascript/">多层json对象嵌套的扁平化与去扁平化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/29/wechat/">nodejs微信开发(一)</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/07/02/javascript简单继承/">javascript简单继承</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/01/git服务器代码自动部署/">git服务器代码自动部署</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/29/javascript/">多层json对象嵌套的扁平化与去扁平化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/29/wechat/">nodejs微信开发(一)</a></li></ul>
 
 
 

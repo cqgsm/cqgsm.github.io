@@ -15,16 +15,16 @@
 
 
 
-<meta name="description" content="废话不多说，直接上代码">
+<meta name="description" content="面向对象中少不了继承，js继承方式多种多样，各有优劣，今天来分析使用下John Resig大神的Simple JavaScript Inheritance">
 <meta property="og:type" content="article">
-<meta property="og:title" content="多层json对象嵌套的扁平化与去扁平化">
-<meta property="og:url" content="http://cqblog.info/2016/06/29/javascript/index.html">
+<meta property="og:title" content="javascript简单继承">
+<meta property="og:url" content="http://cqblog.info/2016/07/02/javascript简单继承/index.html">
 <meta property="og:site_name" content="白小菜">
-<meta property="og:description" content="废话不多说，直接上代码">
-<meta property="og:updated_time" content="2016-07-01T02:17:27.907Z">
+<meta property="og:description" content="面向对象中少不了继承，js继承方式多种多样，各有优劣，今天来分析使用下John Resig大神的Simple JavaScript Inheritance">
+<meta property="og:updated_time" content="2016-07-02T14:59:12.257Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="多层json对象嵌套的扁平化与去扁平化">
-<meta name="twitter:description" content="废话不多说，直接上代码">
+<meta name="twitter:title" content="javascript简单继承">
+<meta name="twitter:description" content="面向对象中少不了继承，js继承方式多种多样，各有优劣，今天来分析使用下John Resig大神的Simple JavaScript Inheritance">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -56,7 +56,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>多层json对象嵌套的扁平化与去扁平化 | 白小菜</title>
+<title>javascript简单继承 | 白小菜</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -265,11 +265,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-javascript" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-javascript简单继承" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/06/29/javascript/" class="article-date">
-      <time datetime="2016-06-29T12:49:07.000Z" itemprop="datePublished">2016-06-29</time>
+      <a href="/2016/07/02/javascript简单继承/" class="article-date">
+      <time datetime="2016-07-02T12:05:37.000Z" itemprop="datePublished">2016-07-02</time>
 </a>
 
 
@@ -284,7 +284,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      多层json对象嵌套的扁平化与去扁平化
+      javascript简单继承
     </h1>
   
 
@@ -299,7 +299,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/json/">json</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js知识汇总/">js知识汇总</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -309,10 +309,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>废话不多说，直接上代码<br><a id="more"></a><br>今天遇到一个问题，多重json嵌套，要扁平化，弱鸡挣扎了下，找了个解决方案<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">//扁平化</div><div class="line">    JSON.flatten = <span class="keyword">function</span>(data) &#123;</div><div class="line">        var result = &#123;&#125;;</div><div class="line">        <span class="keyword">function</span> recurse(cur, prop) &#123;</div><div class="line">            <span class="keyword">if</span> (Object(cur) !== cur) &#123;</div><div class="line">                result[prop] = cur;</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (Array.isArray(cur)) &#123;</div><div class="line">                <span class="keyword">for</span> (var i = 0, l = cur.length; i &lt; l; i++)</div><div class="line">                    recurse(cur[i], prop + <span class="string">"["</span> + i + <span class="string">"]"</span>);</div><div class="line">                <span class="keyword">if</span> (l == 0)</div><div class="line">                    result[prop] = [];</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                var isEmpty = <span class="literal">true</span>;</div><div class="line">                <span class="keyword">for</span> (var p <span class="keyword">in</span> cur) &#123;</div><div class="line">                    isEmpty = <span class="literal">false</span>;</div><div class="line">                    recurse(cur[p], prop ? prop + <span class="string">"."</span> + p : p);</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span> (isEmpty &amp;&amp; prop)</div><div class="line">                    result[prop] = &#123;&#125;;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        recurse(data, <span class="string">""</span>);</div><div class="line">        <span class="built_in">return</span> result;</div><div class="line">    &#125;;</div><div class="line">    </div><div class="line">    //去扁平化</div><div class="line">    JSON.unflatten = <span class="keyword">function</span>(data) &#123;</div><div class="line">        <span class="string">"use strict"</span>;</div><div class="line">        <span class="keyword">if</span> (Object(data) !== data || Array.isArray(data))</div><div class="line">            <span class="built_in">return</span> data;</div><div class="line">        var regex = /\.?([^.\[\]]+)|\[(\d+)\]/g,</div><div class="line">            resultholder = &#123;&#125;;</div><div class="line">        <span class="keyword">for</span> (var p <span class="keyword">in</span> data) &#123;</div><div class="line">            var cur = resultholder,</div><div class="line">                prop = <span class="string">""</span>,</div><div class="line">                m;</div><div class="line">            <span class="keyword">while</span> (m = regex.exec(p)) &#123;</div><div class="line">                cur = cur[prop] || (cur[prop] = (m[2] ? [] : &#123;&#125;));</div><div class="line">                prop = m[2] || m[1];</div><div class="line">            &#125;</div><div class="line">            cur[prop] = data[p];</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> resultholder[<span class="string">""</span>] || resultholder;</div><div class="line">    &#125;;</div></pre></td></tr></table></figure></p>
-<p>测试用例：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var xml = &#123;</div><div class="line">        ToUserName: [<span class="string">'阿斯顿'</span>],</div><div class="line">        FromUserName: [<span class="string">'啊实打实的'</span>],</div><div class="line">        CreateTime: [<span class="string">'hhhh123123123'</span>, &#123;<span class="string">"x"</span>: <span class="string">"aaa"</span>&#125;,[1, 2, 3, 4]],</div><div class="line">        MsgType: [<span class="string">'event'</span>],</div><div class="line">        Event: [<span class="string">'sdf '</span>],</div><div class="line">        EventKey: [<span class="string">''</span>],</div><div class="line">        xx: <span class="string">'xx'</span></div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
-<p>扁平化结果：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    CreateTime[0]: <span class="string">"hhhh123123123"</span>,</div><div class="line">    CreateTime[1].x: <span class="string">"aaa"</span>,</div><div class="line">    CreateTime[2][0]: 1,</div><div class="line">    CreateTime[2][1]: 2,</div><div class="line">    CreateTime[2][2]: 3,</div><div class="line">    CreateTime[2][3]: 4,</div><div class="line">    EventKey[0]: <span class="string">""</span>,</div><div class="line">    Event[0]: <span class="string">"sdf "</span>,</div><div class="line">    FromUserName[0]: <span class="string">"啊实打实的"</span>,</div><div class="line">    MsgType[0]: <span class="string">"event"</span>,</div><div class="line">    ToUserName[0]: <span class="string">"阿斯顿"</span>,</div><div class="line">    xx: <span class="string">"xx"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>正好能满足需求<br>使用   <strong>JSON.flatten</strong> 能还原去扁平化的值，不做演示。</p>
+        <p>面向对象中少不了继承，js继承方式多种多样，各有优劣，今天来分析使用下John Resig大神的Simple JavaScript Inheritance<br><a id="more"></a><br>代码不多，但是很巧妙，非常值得学习</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div></pre></td><td class="code"><pre><div class="line">    /* Simple JavaScript Inheritance</div><div class="line">     * By John Resig http://ejohn.org/</div><div class="line">     * MIT Licensed.</div><div class="line">     * Inspired by base2 and Prototype</div><div class="line">     */</div><div class="line">(<span class="function"><span class="title">function</span></span>() &#123;</div><div class="line">    //initializing 用来控制init是在 new Class()的时候触发</div><div class="line">    // /xyz/.test(<span class="function"><span class="title">function</span></span>() &#123;xyz;&#125;)用来判定函数的toString是否能暴露里面的实现，也就是把函数变成一个字符串，现代浏览器基本都能正确显示</div><div class="line">    //返回 `_super_` 下面会做判断用</div><div class="line">    var initializing = <span class="literal">false</span>,</div><div class="line">        fnTest = /xyz/.test(<span class="function"><span class="title">function</span></span>() &#123;xyz;&#125;) ? /\b_super\b/ : /.*/;</div><div class="line">    //this是window,暴露到全局，这个是基类</div><div class="line">    this.Class = <span class="function"><span class="title">function</span></span>() &#123;&#125;;</div><div class="line">    Class.extend = <span class="keyword">function</span>(prop) &#123;</div><div class="line">        //保存父类的原型对象到`_super`</div><div class="line">        var _super = this.prototype;</div><div class="line">        //<span class="literal">true</span> 阻止了new this()的时候，立马执行类的init函数</div><div class="line">        initializing = <span class="literal">true</span>;</div><div class="line">        //变量prototype保存了父类的`实例化对象`</div><div class="line">        // prototype 继承 _super</div><div class="line">        var prototype = new this(); </div><div class="line">        initializing = <span class="literal">false</span>;</div><div class="line">        //复制属性</div><div class="line">        <span class="keyword">for</span> (var name <span class="keyword">in</span> prop) &#123;</div><div class="line">            //传进来的对象遍历，赋给`prototype`这个对象</div><div class="line">            //这段就是为了判断传进来的是函数，而且父类的原型对象里面也有这个函数，并且传进来的函数里面有`_super`,那么就做一些小操作，this._super 指向父类原型对象中的同名方法</div><div class="line">            prototype[name] = typeof prop[name] == <span class="string">"function"</span> &amp;&amp;</div><div class="line">                typeof _super[name] == <span class="string">"function"</span> &amp;&amp; fnTest.test(prop[name]) ?</div><div class="line">                (<span class="keyword">function</span>(name, fn) &#123;</div><div class="line">                    <span class="built_in">return</span> <span class="function"><span class="title">function</span></span>() &#123;</div><div class="line">                        var tmp = this._super;</div><div class="line">                        this._super = _super[name];</div><div class="line">                        var ret = fn.apply(this, arguments);</div><div class="line">                        this._super = tmp;</div><div class="line">                        <span class="built_in">return</span> ret;</div><div class="line">                    &#125;;</div><div class="line">                &#125;)(name, prop[name]) : prop[name];</div><div class="line">        &#125;</div><div class="line">        //这是一个 局部函数，弄了个跟全局Class一样的名字，这个不影响，完全可以换一个函数名字</div><div class="line">        <span class="keyword">function</span> <span class="function"><span class="title">Class</span></span>() &#123;</div><div class="line">            //执行初始化函数，这里就用到了上面的initializing开关</div><div class="line">            <span class="keyword">if</span> (!initializing &amp;&amp; this.init)</div><div class="line">                this.init.apply(this, arguments);</div><div class="line">        &#125;</div><div class="line">        //var prototype = new this();上面的遍历扩充了方法</div><div class="line">        Class.prototype = prototype;</div><div class="line">        Class.prototype.constructor = Class;</div><div class="line">        //arguments.callee 代表当前执行的函数，也就是Class.extend(这个是全局的Class)</div><div class="line">        //保证能顺序继承下去</div><div class="line">        Class.extend = arguments.callee;</div><div class="line">        <span class="built_in">return</span> Class;</div><div class="line">    &#125;;</div><div class="line">&#125;)();</div><div class="line"></div><div class="line">总结下：所有实现都在构造函数的prototype对象中</div><div class="line">//   `---&gt;`表示继承</div><div class="line">继承顺序：class(局部函数).prototype ---&gt;  prototype(该对象为new this(),也就是父类的实例,并且添加了子类自己的方法)---&gt; 继承了 父类.prototype</div><div class="line">最后<span class="built_in">return</span> 出去了 class(局部函数);</div><div class="line">使用方法：</div><div class="line">    var Person = Class.extend(&#123;</div><div class="line">            init: <span class="keyword">function</span>(name) &#123;</div><div class="line">                this.name = name;</div><div class="line">            &#125;,</div><div class="line">            getName: <span class="function"><span class="title">function</span></span>() &#123;</div><div class="line">                <span class="built_in">return</span> this.name;</div><div class="line">            &#125;,</div><div class="line">            oo:<span class="function"><span class="title">function</span></span>()&#123;</div><div class="line">                alert(1)</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        // Employee类从Person类继承</div><div class="line">        var Employee = Person.extend(&#123;</div><div class="line">            init: <span class="keyword">function</span>(name, id) &#123;</div><div class="line">                this._super(name);</div><div class="line">                this.id = id;</div><div class="line">                this.arr = [1,3];</div><div class="line">            &#125;,</div><div class="line">            getEmployeeID: <span class="function"><span class="title">function</span></span>() &#123;</div><div class="line">                <span class="built_in">return</span> this.x;</div><div class="line">            &#125;,</div><div class="line">            getName: <span class="function"><span class="title">function</span></span>() &#123;</div><div class="line">                //  调用父类的方法</div><div class="line">                <span class="built_in">return</span> <span class="string">"Employee name: "</span> + this.name;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        </div><div class="line">        var zhang = new Employee(<span class="string">"ZhangSan"</span>, <span class="string">"1234"</span>);</div><div class="line"></div><div class="line">        console.log(zhang.getName()) //Employee name: ZhangSan;</div><div class="line"></div><div class="line">    Person类，就是组装好<span class="built_in">return</span>给我们的Class(局部函数) </div><div class="line">    new Person() 就完成了上面的继承顺序</div><div class="line">    子类和父类方法同名，子类里面this.super()能直接调用父类的方法</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -321,13 +319,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/06/29/javascript/">多层json对象嵌套的扁平化与去扁平化</a></p>
+        <p><span>本文标题:</span><a href="/2016/07/02/javascript简单继承/">javascript简单继承</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">白小菜</a></p>
-        <p><span>发布时间:</span>2016-06-29, 20:49:07</p>
-        <p><span>最后更新:</span>2016-07-01, 10:17:27</p>
+        <p><span>发布时间:</span>2016-07-02, 20:05:37</p>
+        <p><span>最后更新:</span>2016-07-02, 22:59:12</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/06/29/javascript/" title="多层json对象嵌套的扁平化与去扁平化">http://cqblog.info/2016/06/29/javascript/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://cqblog.info/2016/06/29/javascript/　　作者: 白小菜" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2016/07/02/javascript简单继承/" title="javascript简单继承">http://cqblog.info/2016/07/02/javascript简单继承/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://cqblog.info/2016/07/02/javascript简单继承/　　作者: 白小菜" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -339,16 +337,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/07/01/git服务器代码自动部署/">
-                    git服务器代码自动部署
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/06/29/wechat/">
-                    nodejs微信开发(一)
+                <a href="/2016/07/01/git服务器代码自动部署/">
+                    git服务器代码自动部署
                 </a>
             </div>
         
@@ -390,7 +382,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"多层json对象嵌套的扁平化与去扁平化　| 白小菜　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"javascript简单继承　| 白小菜　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -406,7 +398,7 @@
     
       <div class="duoshuo" id="comments">
     <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="2016/06/29/javascript/" data-title="多层json对象嵌套的扁平化与去扁平化" data-url="http://cqblog.info/2016/06/29/javascript/"></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2016/07/02/javascript简单继承/" data-title="javascript简单继承" data-url="http://cqblog.info/2016/07/02/javascript简单继承/"></div>
     <script>
         var duoshuoQuery = {short_name:"cqblog"};
         var loadComment = function(){
@@ -429,15 +421,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/07/01/git服务器代码自动部署/" title="上一篇: git服务器代码自动部署">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/06/29/wechat/" title="下一篇: nodejs微信开发(一)">
+            <a href="/2016/07/01/git服务器代码自动部署/" title="下一篇: git服务器代码自动部署">
                 <i class="fa fa-angle-right"></i>
             </a>
         
