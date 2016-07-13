@@ -4,7 +4,7 @@
   
     
     <entry>
-      <title><![CDATA[mongdb]]></title>
+      <title><![CDATA[mongodb]]></title>
       <url>http://cqblog.info/2016/07/14/mongodb/</url>
       <content type="html"><![CDATA[<p>近期学习nodejs做了一个小demo，登录注册，上传图片并且裁剪，发表文章。<br>使用了mongodb，做了一个简单的封装，本来想做互相评论回复，但是发现，使用自己封装的简易DAO层，很难实现，集合与集合之间的关系很难处理，下一步学习mongoose.重构整个功能。<br>还是记录下这个简易的封装<br><a id="more"></a></p>
 <p>#1. 连接数据库<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">function</span> _connectDB(callback) &#123;</div><div class="line">    var url = settings.dburl;</div><div class="line">    MongoClient.connect(url, <span class="keyword">function</span> (err, db) &#123;</div><div class="line">        <span class="keyword">if</span> (err) &#123;</div><div class="line">            throw Error(err);</div><div class="line">        &#125;</div><div class="line">        callback(db);</div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
